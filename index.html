@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="全国1,892市町村・区の農業適地と、8種類の1km気候平均面を同じ地図で比較できる購入者向けツールです。" />
+    <meta name="theme-color" content="#123f28" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://cyberjapandata.gsi.go.jp; connect-src 'self' https://cyberjapandata.gsi.go.jp; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+    <title>気象と土地条件でみる農業適地MAP | NatureWxLab</title>
+    <link rel="stylesheet" href="./styles.css?v=20260723-climate-reference-v1" />
+  </head>
+  <body class="locked">
+    <section id="lockScreen" class="lock-screen" aria-labelledby="lockTitle">
+      <div class="lock-card">
+        <p class="eyebrow">NatureWxLab</p>
+        <h1 id="lockTitle">気象と土地条件でみる農業適地MAP</h1>
+        <p class="lock-lead">この地図は購入者向けです。note有料部分に記載されたパスワードを入力してください。</p>
+        <form id="unlockForm" class="unlock-form">
+          <label for="unlockPassword">パスワード</label>
+          <div class="unlock-row">
+            <input id="unlockPassword" name="password" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false" required />
+            <button id="unlockButton" type="submit">地図を開く</button>
+          </div>
+          <label class="remember-row" for="rememberDevice">
+            <input id="rememberDevice" type="checkbox" checked />
+            <span>このブラウザで次回から自動的に開く</span>
+          </label>
+        </form>
+        <p id="unlockStatus" class="unlock-status" role="status">暗号化された地図データを確認しています…</p>
+        <p class="lock-note">パスワードと地図の復号はこのブラウザ内だけで行われ、入力内容を外部へ送信しません。</p>
+        <noscript><p class="unlock-error">この地図を開くにはJavaScriptを有効にしてください。</p></noscript>
+      </div>
+    </section>
+
+    <div id="protectedContent" hidden>
+    <header class="topbar">
+      <div class="title-row">
+        <span class="agri-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" focusable="false">
+            <path d="M20 31V16"></path>
+            <path d="M20 21c-6.4 0-10-3.8-10-10 6.4 0 10 3.7 10 10Z"></path>
+            <path d="M20 25c6.4 0 10-3.8 10-10-6.4 0-10 3.7-10 10Z"></path>
+            <path d="M7 32.5h26M10 36h20"></path>
+          </svg>
+        </span>
+        <div class="title-copy">
+          <p class="product-kicker">NATUREWXLAB AGRI MAP</p>
+          <h1><span class="title-prefix">気象と土地条件でみる</span><strong>農業適地MAP</strong></h1>
+          <p class="product-subtitle">全国56品目・8分野＋気候面を、ひとつの地図で比較</p>
+        </div>
+        <a
+          class="guide-link"
+          href="https://note.com/nature_wx_lab/m/me4468b532839"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="NatureWxLabの農業適地に関する解説記事をnoteで読む"
+        >
+          <span class="guide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M5 4.75A2.75 2.75 0 0 1 7.75 2H19v16.5h-9.75A2.25 2.25 0 0 0 7 20.75V21H5V4.75Z"></path>
+              <path d="M7 5.25A1.25 1.25 0 0 1 8.25 4H17v12.5H9.25c-.82 0-1.6.27-2.25.76V5.25Z"></path>
+              <path d="M9.25 7.25h5.5M9.25 10.25h5.5M9.25 13.25h3.5"></path>
+            </svg>
+          </span>
+          <span>解説記事</span>
+        </a>
+      </div>
+      <div class="header-actions">
+        <a
+          class="brand brand-link"
+          href="https://naturewxlab.com/"
+          aria-label="NatureWxLab公式ホームページへ戻る"
+          title="NatureWxLab公式ホームページへ"
+        >
+          <span class="brand-home-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M3.5 10.5 12 3l8.5 7.5"></path>
+              <path d="M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"></path>
+            </svg>
+          </span>
+          <span class="brand-label">NatureWxLab</span>
+        </a>
+        <nav class="sns-links" aria-label="Nature Wx Lab SNSリンク">
+          <a class="sns-link youtube" href="https://www.youtube.com/@nature_wx_lab" target="_blank" rel="noopener noreferrer" aria-label="NatureWxLabのYouTubeを開く">
+            <span class="sns-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect x="2" y="5" width="20" height="14" rx="4" fill="#ff0033"></rect>
+                <path d="M10 8.8v6.4l5.4-3.2z" fill="#fff"></path>
+              </svg>
+            </span>
+            <span>YouTube</span>
+          </a>
+          <a class="sns-link note" href="https://note.com/nature_wx_lab" target="_blank" rel="noopener noreferrer" aria-label="NatureWxLabのnoteを開く">
+            <span class="sns-mark note-mark" aria-hidden="true">n</span>
+            <span>note</span>
+          </a>
+          <a class="sns-link x" href="https://x.com/nature_wx_lab" target="_blank" rel="noopener noreferrer" aria-label="NatureWxLabのXを開く">
+            <span class="sns-mark x-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect width="24" height="24" fill="#000"></rect>
+                <path d="M4.2 3.2h4.1l4.2 5.7 5-5.7h2.3l-6.2 7.1 6.4 10.5h-4.1l-4.6-6.4-5.6 6.4H3.4l6.8-7.7L4.2 3.2Zm3.0 1.7 9.6 14.2h1.1L8.3 4.9H7.2Z" fill="#fff"></path>
+              </svg>
+            </span>
+            <span>X</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="controls" aria-label="地図の表示条件">
+        <section class="control-section">
+          <label for="layerSelect">分野</label>
+          <select id="layerSelect" aria-label="農業分野">
+            <option value="rice">水稲</option>
+            <option value="vegetables">露地野菜</option>
+            <option value="orchard">果樹</option>
+            <option value="upland">畑作</option>
+            <option value="greenhouse">施設園芸</option>
+            <option value="overall">4分野総合</option>
+            <option value="warming">温暖化による変化</option>
+            <option value="soil">土壌分類</option>
+            <option value="climate">気候ものさし（参考）</option>
+          </select>
+        </section>
+
+        <section id="climateControl" class="control-section climate-control" hidden>
+          <label for="climateElement">気象要素</label>
+          <select id="climateElement">
+            <option value="201">平均気温</option>
+            <option value="202">最高気温の平均</option>
+            <option value="203">最低気温の平均</option>
+            <option value="101">降水量</option>
+            <option value="401">日照時間</option>
+            <option value="501">最深積雪</option>
+            <option value="503">降雪量</option>
+            <option value="610">全天日射量</option>
+          </select>
+
+          <label for="climateMonth" class="climate-control-label">月・年</label>
+          <select id="climateMonth"></select>
+
+          <span class="control-label climate-control-label">平均期間</span>
+          <div id="climateWindowControl" class="segmented climate-window-grid" role="group" aria-label="気候平均期間">
+            <button type="button" data-climate-window="1991_2020">
+              <strong>1991–2020</strong>
+              <span>気象庁平年期間・独自算出</span>
+            </button>
+            <button class="active" type="button" data-climate-window="1996_2025">
+              <strong>1996–2025</strong>
+              <span>最新30年・独自算出</span>
+            </button>
+          </div>
+
+          <label class="opacity-label climate-opacity-label" for="climateOpacity">
+            <span>気候面の濃さ</span>
+            <output id="climateOpacityValue" for="climateOpacity">84％</output>
+          </label>
+          <input id="climateOpacity" class="opacity-slider climate-opacity-slider" type="range" min="0" max="100" step="1" value="84" />
+          <p id="climateControlNote" class="overlay-note">全国387,717陸域1kmメッシュをもとにした独自算出・独自内挿の参考面です。</p>
+        </section>
+
+        <section id="vegetableControl" class="control-section" hidden>
+          <span class="control-label">露地野菜のタイプ</span>
+          <div class="segmented segmented-three" role="group" aria-label="露地野菜のタイプ">
+            <button class="active" type="button" data-vegetable-type="leafy">葉茎菜</button>
+            <button type="button" data-vegetable-type="fruiting">果菜</button>
+            <button type="button" data-vegetable-type="root">根菜</button>
+          </div>
+        </section>
+
+        <section id="majorCropControl" class="control-section" hidden>
+          <span id="majorCropLabel" class="control-label">品目別の表示</span>
+          <div id="majorCropButtons" class="segmented orchard-crop-grid" role="group" aria-labelledby="majorCropLabel"></div>
+        </section>
+
+        <section id="orchardControl" class="control-section" hidden>
+          <span class="control-label">果樹の表示</span>
+          <div class="segmented orchard-crop-grid" role="group" aria-label="果樹の共通・品目別表示">
+            <button class="active wide" type="button" data-orchard-crop="common">果樹共通</button>
+            <button type="button" data-orchard-crop="apple">りんご</button>
+            <button type="button" data-orchard-crop="mikan">みかん</button>
+            <button type="button" data-orchard-crop="grape">ぶどう</button>
+            <button type="button" data-orchard-crop="peach">もも</button>
+            <button type="button" data-orchard-crop="pear">なし</button>
+            <button type="button" data-orchard-crop="persimmon">かき</button>
+            <button type="button" data-orchard-crop="ume">うめ</button>
+            <button type="button" data-orchard-crop="cherry">さくらんぼ</button>
+            <button type="button" data-orchard-crop="chestnut">くり</button>
+            <button type="button" data-orchard-crop="kiwi">キウイフルーツ</button>
+          </div>
+        </section>
+
+        <section id="productionOverlayControl" class="control-section production-overlay-control" hidden>
+          <div class="overlay-heading">
+            <span class="control-label">実際の産地分布</span>
+            <span class="source-year">2020年</span>
+          </div>
+          <button id="productionOverlayToggle" class="overlay-toggle" type="button" aria-pressed="false">
+            <span class="overlay-dot" aria-hidden="true"></span>
+            <span>産地境界を表示</span>
+          </button>
+          <label class="opacity-label" for="productionOverlayOpacity">
+            <span>境界線の強さ</span>
+            <output id="productionOverlayOpacityValue" for="productionOverlayOpacity">60％</output>
+          </label>
+          <input id="productionOverlayOpacity" class="opacity-slider" type="range" min="0" max="100" step="1" value="60" disabled />
+          <p class="overlay-note">線が太く明るいほど栽培面積が大きく表示されます。収穫量ではなく、適地得点には使っていません。</p>
+        </section>
+
+        <section id="overallControl" class="control-section" hidden>
+          <label for="overallMethod">総合の比べ方</label>
+          <select id="overallMethod">
+            <option value="citywide">市域全体平均</option>
+            <option value="commonMesh">同じ1kmメッシュ</option>
+            <option value="bestAreas">分野別好条件域</option>
+          </select>
+        </section>
+
+        <section id="warmingControl" class="control-section" hidden>
+          <label for="warmingIndicator">変化を見る分野</label>
+          <select id="warmingIndicator">
+            <option value="overall">4分野総合</option>
+            <option value="rice">水稲</option>
+            <option value="leafy">露地野菜（葉茎菜）</option>
+            <option value="orchard">果樹</option>
+            <option value="upland">畑作</option>
+          </select>
+        </section>
+
+        <section id="metricControl" class="control-section">
+          <span class="control-label">色の基準</span>
+          <div class="segmented" role="group" aria-label="色の基準">
+            <button class="active" type="button" data-metric="rank">全国順位</button>
+            <button type="button" data-metric="score">スコア</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <label for="municipalitySearch">自治体を探す</label>
+          <div class="search-row">
+            <input id="municipalitySearch" list="municipalityOptions" type="search" placeholder="例：山形県 三川町" autocomplete="off" />
+            <button id="searchButton" type="button">表示</button>
+          </div>
+          <datalist id="municipalityOptions"></datalist>
+        </section>
+
+        <section class="control-section" aria-label="地図表示オプション">
+          <details class="map-display-settings">
+            <summary>地図表示</summary>
+            <div class="map-display-settings-body">
+              <label class="map-check-row" for="placeLabelsToggle">
+                <input id="placeLabelsToggle" type="checkbox" />
+                <span>地点名を表示</span>
+              </label>
+
+              <label class="map-check-row" for="detailMapToggle">
+                <input id="detailMapToggle" type="checkbox" />
+                <span>詳細地図（市町村境界）</span>
+              </label>
+              <label class="map-opacity-control map-subordinate-control" for="detailMapOpacity">
+                <span>詳細地図の濃さ</span>
+                <input id="detailMapOpacity" type="range" min="0" max="100" step="1" value="70" disabled />
+                <output id="detailMapOpacityValue" for="detailMapOpacity">70％</output>
+              </label>
+
+              <label class="map-check-row" for="terrainToggle">
+                <input id="terrainToggle" type="checkbox" />
+                <span>地形</span>
+              </label>
+              <label class="terrain-style-control map-subordinate-control" for="terrainStyle">
+                <span>地形表示</span>
+                <select id="terrainStyle" disabled>
+                  <option value="mono" selected>白黒</option>
+                  <option value="color">カラー</option>
+                </select>
+              </label>
+              <label class="map-opacity-control map-subordinate-control" for="terrainOpacity">
+                <span>地形の濃さ</span>
+                <input id="terrainOpacity" type="range" min="0" max="100" step="1" value="35" disabled />
+                <output id="terrainOpacityValue" for="terrainOpacity">35％</output>
+              </label>
+            </div>
+          </details>
+        </section>
+
+        <section class="control-section utility-actions" aria-label="共有と保存">
+          <button id="copyLink" type="button">共有URLをコピー</button>
+          <button id="saveImage" type="button">PNG保存</button>
+          <button id="forgetDevice" class="forget-device" type="button">この端末の保存鍵を削除</button>
+        </section>
+
+        <p id="layerNote" class="layer-note"></p>
+      </aside>
+
+      <section class="map-panel" aria-label="全国農業自然条件・土壌分類地図">
+        <div class="map-heading">
+          <div>
+            <p id="mapKicker">水稲</p>
+            <h2 id="mapTitle">全国順位</h2>
+          </div>
+          <p id="mapStatus" role="status">データを読み込み中…</p>
+        </div>
+        <div id="mapFrame" class="map-frame">
+          <canvas id="mapCanvas" aria-label="自治体別の塗り分け地図"></canvas>
+          <div class="map-zoom-controls" aria-label="地図操作">
+            <button id="zoomIn" type="button" title="拡大" aria-label="拡大">＋</button>
+            <div class="zoom-track" aria-hidden="true"><div id="zoomThumb" class="zoom-thumb"></div></div>
+            <button id="zoomOut" type="button" title="縮小" aria-label="縮小">−</button>
+            <button id="resetView" type="button" title="全国表示" aria-label="全国表示">全</button>
+          </div>
+          <div id="legend" class="legend" aria-label="凡例"></div>
+          <div id="mapTooltip" class="map-tooltip" hidden></div>
+          <div class="map-help">ドラッグで移動／ホイール・2本指で拡大</div>
+        </div>
+      </section>
+
+      <aside class="details" aria-live="polite">
+        <div class="details-header">
+          <p>選択した自治体</p>
+          <button id="clearSelection" type="button" hidden>解除</button>
+        </div>
+        <div id="detailsContent" class="details-content">
+          <h2>地図から選択</h2>
+          <p>自治体をクリックまたはタップすると、順位・スコアと分野横断の比較を確認できます。</p>
+        </div>
+        <section class="ranking-section" aria-label="全国ランキング一覧">
+          <div class="ranking-heading">
+            <h2 id="rankingTitle">全国上位10</h2>
+            <div id="rankingMode" class="ranking-toggle" role="group" aria-label="ランキングの方向">
+              <button class="active" type="button" data-ranking-side="top">上位</button>
+              <button type="button" data-ranking-side="bottom">下位</button>
+            </div>
+          </div>
+          <div id="rankingContent" class="ranking-content"></div>
+        </section>
+      </aside>
+    </main>
+
+    <section class="reading-note" aria-label="地図の読み方">
+      <div>
+        <h2>この地図について</h2>
+        <p>気象・地形・土壌によるNatureWxLab独自の比較指数です。46品目は、施設7品目の作物温度限界を除き、非査読・著者設定の探索パラメータを含みます。全閾値は購入者Excelと自治体詳細に開示しています。</p>
+      </div>
+      <div>
+        <h2>示さないもの</h2>
+        <p>収量・品質・利益・水利・物流・災害・農地取得可能性や、個別圃場の適否、公的な適地認定は示しません。</p>
+      </div>
+      <div>
+        <h2>産地分布</h2>
+        <p>2020年農林業センサスの販売目的栽培面積を紫の境界線で表示。太く明るいほど面積が大きく、収穫量・収量ではありません。秘匿値は「不明」です。</p>
+      </div>
+      <div>
+        <h2>温暖化ビュー</h2>
+        <p>1981〜2000年と2006〜2025年を比較し、72条件の感度分析を踏まえた5段階の変化帯を表示。将来予測や単一原因の証明ではありません。</p>
+      </div>
+      <div>
+        <h2>土壌分類</h2>
+        <p>農研機構の全国農耕地土壌図から、2024年行政界ごとの最多土壌大群を表示。圃場の土壌や良否、作物適性の点数ではありません。</p>
+      </div>
+      <div>
+        <h2>気候ものさし</h2>
+        <p>2つの30年平均による8要素の1km参考面です。農業適地の得点・順位には加えず、地域の気候を読み解く補助表示として分離しています。</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>出典：気象庁、国土数値情報（行政区域・標高傾斜度）、<a href="https://soil-inventory.rad.naro.go.jp/" target="_blank" rel="noopener noreferrer">農研機構日本土壌インベントリー（NARO, Japanese Soil Inventory）</a>、<a href="https://www.e-stat.go.jp/index.php/stat-search/database?cycle=7&amp;layout=datalist&amp;page=1&amp;statdisp_id=0002073918&amp;tclass1=000001147146&amp;tclass2=000001155386&amp;tclass3=000001161206&amp;tclass4val=0&amp;toukei=00500209&amp;toukei_kind=6&amp;tstat=000001032920" target="_blank" rel="noopener noreferrer">2020年農林業センサス（農林水産省・e-Stat）</a>をNatureWxLabが独自加工。気候ものさしは気象観測値等から独自算出・独自内挿した全国1km面で、公式1km平年値ではありません。土壌図はCC BY 4.0。行政界は2024年版を表示用に簡略化。周辺国の地図境界はNatural Earth（Public Domain）。詳細地図・地形は<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener noreferrer">国土地理院「地理院タイル」</a>。詳細地図・地形をONにしたときだけ同院サーバーへ画像を取得し、通常のWeb通信としてIPアドレス等が同院へ送られます（既定OFF・Refererは送信しません）。</p>
+      <p><a href="https://naturewxlab.com/policy/">利用条件・プライバシーポリシー</a></p>
+    </footer>
+    </div>
+
+    <script src="./app.js?v=20260723-climate-reference-v1" type="module"></script>
+  </body>
+</html>
